@@ -4,7 +4,6 @@ import React from 'react'
 import VehicleInfo from './VehicleInfo'
 import { useVehicles, clearFilter, setStep } from '../context/VehicleState'
 
-import wizard from '../layout/assets/images/step4.png'
 import logo from '../layout/assets/images/logo.png'
 import '../layout/css/summary.css'
 

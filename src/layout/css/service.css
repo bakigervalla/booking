@@ -1,10 +1,10 @@
 .w2 {
-    @apply h-[36rem] w-2/3;
+    @apply h-full md:h-[36rem] w-full md:w-1/2;
     border: 2px solid #1a51a0;
 }
 
 .w2 .title {
-    @apply grid place-items-center
+    @apply place-items-center
 }
 
 /* Checkbox */
@@ -197,6 +197,8 @@ div.buttons {
 .w2 .actions p:first-child {
     width: 29.5% !important;
     float: left !important;
+    line-height: 15px;
+    padding-top: 2px;
 }
 
 .w2 .actions div .tags,

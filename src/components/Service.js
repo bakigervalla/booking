@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
 import {
   useVehicles,
@@ -56,7 +57,7 @@ const Services = ({ workshop }) => {
             ) : (
               <FontAwesomeIcon icon={faPlusCircle} className="icon" />
             )}
-            <span>{item.name}</span>
+            <span className='text-start'>{item.name}</span>
           </div>
         </div>
         <div className={`service-desc ${descr === item.id ? 'show' : null}`}>
@@ -65,7 +66,7 @@ const Services = ({ workshop }) => {
       </>
     ) : (
       <div className="inactive">
-        <span>{item.name}</span>
+        <span className=' text-left'>{item.name}</span>
       </div>
     )
   }
@@ -124,46 +125,83 @@ const Services = ({ workshop }) => {
       <VehicleInfo vehicle={vehicles} />
 
       {/* Checkbox */}
-      <div className="grid grid-cols-3 gap-4 content-start h-24 justify-center items-center">
-        <div className="w-96 h-24 grid-container">
-          <div className="h-24 first-service-heading">
-            <div className='flex row items-center ml-4'>
-              <input
-                type="checkbox"
-                checked={serviceAgreement}
-                onChange={() => setServiceAgreement(!serviceAgreement)}
-              />
-              <p>Fragus serviceavtale</p>
-              <div className="tooltip" id="third">
-                <FontAwesomeIcon
-                  icon={faInfoCircle}
-                  className="icon-left"
-                  onClick={(e) => toggleCheckboxDesc(!chkDesc)}
+      <BrowserView>
+        <div className="grid grid-cols-3 gap-4 content-start h-24 justify-center items-center">
+          <div className="w-96 grid-container">
+            <div className="first-service-heading">
+              <div className='flex row items-center ml-4'>
+                <input
+                  type="checkbox"
+                  checked={serviceAgreement}
+                  onChange={() => setServiceAgreement(!serviceAgreement)}
                 />
-                <div className={`service-desc ${chkDesc ? 'show' : null}`}>
-                  <span>Har du Fragus serviceavtale? Huk av for det her.</span>
-                </div>
+                <p>Fragus serviceavtale</p>
+                <div className="tooltip" id="third">
+                  <FontAwesomeIcon
+                    icon={faInfoCircle}
+                    className="icon-left"
+                    onClick={(e) => toggleCheckboxDesc(!chkDesc)}
+                  />
+                  <div className={`service-desc ${chkDesc ? 'show' : null}`}>
+                    <span>Har du Fragus serviceavtale? Huk av for det her.</span>
+                  </div>
 
-               
+
+                </div>
               </div>
+
             </div>
 
           </div>
 
-        </div>
+          <div>
+            <h2 className="title pt-6 whitespace-nowrap">Hva gjelder henvendelsen?</h2>
+          </div>
 
-        <div>
-          <h2 className="title h-24">Hva gjelder henvendelsen?</h2>
         </div>
+      </BrowserView>
+      <MobileView>
+      <div className="grid grid-rows-2 gap-4 content-start h-28 justify-center items-center">
+          <div className="w-96 grid-container">
+            <div className="first-service-heading">
+              <div className='flex row items-center ml-4'>
+                <input
+                  type="checkbox"
+                  checked={serviceAgreement}
+                  onChange={() => setServiceAgreement(!serviceAgreement)}
+                />
+                <p>Fragus serviceavtale</p>
+                <div className="tooltip" id="third">
+                  <FontAwesomeIcon
+                    icon={faInfoCircle}
+                    className="icon-left"
+                    onClick={(e) => toggleCheckboxDesc(!chkDesc)}
+                  />
+                  <div className={`service-desc ${chkDesc ? 'show' : null}`}>
+                    <span>Har du Fragus serviceavtale? Huk av for det her.</span>
+                  </div>
 
-      </div>
+
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div>
+            <h2 className="title pt-6 whitespace-nowrap text-center">Hva gjelder henvendelsen?</h2>
+          </div>
+
+        </div>
+      </MobileView>
 
       <div className='grid grid-cols-1 gap-4 h-full content-start'>
         <div className="services h-full">
           {categories &&
             categories.map((category, key) => {
               return (
-                <div key={key} className="service-box">
+                <div key={key} className="service-box w-full md:w-[23.4%]">
                   <h5>{category.name}</h5>
                   {services.filter((itm) => {
                     if (itm.category_id === category.id) return true
@@ -221,7 +259,7 @@ const Services = ({ workshop }) => {
           </div>
         </div>
 
-        <span>
+        <span className='text-center'>
           Kontakt oss på tlf.{' '}
           <a className="link" href={`tel:${workshop.phone}`}>
             {workshop.phone}

@@ -1,5 +1,5 @@
 .w3 {
-    @apply h-[38rem] w-2/3 ;
+    @apply  h-full md:h-[36rem] w-full md:w-1/2;
     border: 2px solid #1a51a0;
 }
 .personal-info {
@@ -44,12 +44,14 @@
     width : 29.5% !important;
     float : left !important;
     margin: 0;
+    line-height: 15px;
+    padding-top: 2px;
 }
 
 div.buttons {
     text-align     : right;
     width          : 50%;
-    display        : flex;
+    display        : block;
     align-items    : center;
     justify-content: flex-end;
     margin         : 8px 0;

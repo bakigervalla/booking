@@ -12,6 +12,7 @@ import {
   VEHICLE_ERROR,
   CLEAR_ERROR,
   SET_LOADING,
+  SEARCH_VEHICLE,
 } from './types'
 
 const vehicleReducer = (state, action) => {
@@ -83,6 +84,11 @@ const vehicleReducer = (state, action) => {
         ...state,
         person: {},
         filtered: [],
+      }
+    case SEARCH_VEHICLE:
+      return {
+        ...state,
+        vehicle: action.payload,
       }
     case VEHICLE_ERROR:
       return {

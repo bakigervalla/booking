@@ -19,6 +19,7 @@ import {
   VEHICLE_ERROR,
   CLEAR_ERROR,
   SET_LOADING,
+  SEARCH_VEHICLE
 } from './types'
 
 // Create a custom hook to use the Vehicle context
@@ -205,6 +206,27 @@ export const submitOrder = async (dispatch, order) => {
       type: VEHICLE_ERROR,
       payload: err,
     })
+  }
+}
+
+export const searchVehicle = async (dispatch, regNo) => {
+  if (regNo) {
+    setLoading(dispatch, true)
+
+    const res = await client.get(`/vehicle/${regNo}`)
+
+    if (res.status != 200)
+      dispatch({
+        type: VEHICLE_ERROR,
+        payload: res,
+      })
+    else
+      dispatch({
+        type: SEARCH_VEHICLE,
+        payload: { ...res.data },
+      })
+
+      setLoading(dispatch, false)
   }
 }
 
