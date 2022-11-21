@@ -1,16 +1,25 @@
-import React from "react";
-import { useVehicles } from '../../context/VehicleState'
+import React, { useEffect } from "react";
+import { useVehicles, setWorkshop } from '../../context/VehicleState'
 import { Vehicles, Service, PersonalInfo, Summary, Box, Info, Progress } from '../index'
 
 export const Container = () => {
-    const [vehicleState] = useVehicles()
+    const [vehicleState, vehicleDispatch] = useVehicles()
     const { workshop, step } = vehicleState
 
-    // let workshop = { workshop_id: process.env.REACT_APP_WORKSHOP_ID
-    //                 ,slug: process.env.REACT_APP_WORKSHOP_SLUG, name: process.env.REACT_APP_WORKSHOP_NAME
-    //                 ,phone: process.env.REACT_APP_WORKSHOP_PHONE
-    //                 ,email: process.env.REACT_APP_WORKSHOP_EMAIL
-    //          }
+    useEffect(() => {
+        setWorkshop(vehicleDispatch, {
+            workshop_id: process.env.REACT_APP_WORKSHOP_ID
+            , slug: process.env.REACT_APP_WORKSHOP_SLUG, name: process.env.REACT_APP_WORKSHOP_NAME
+            , phone: process.env.REACT_APP_WORKSHOP_PHONE
+            , email: process.env.REACT_APP_WORKSHOP_EMAIL
+        })
+    }, [])
+    // let workshop = {
+    //     workshop_id: process.env.REACT_APP_WORKSHOP_ID
+    //     , slug: process.env.REACT_APP_WORKSHOP_SLUG, name: process.env.REACT_APP_WORKSHOP_NAME
+    //     , phone: process.env.REACT_APP_WORKSHOP_PHONE
+    //     , email: process.env.REACT_APP_WORKSHOP_EMAIL
+    // }
 
     let container;
 
