@@ -19,7 +19,9 @@ import {
   VEHICLE_ERROR,
   CLEAR_ERROR,
   SET_LOADING,
-  SEARCH_VEHICLE
+  SEARCH_VEHICLE,
+  GET_WORKSHOPS,
+  SET_WORKSHOP
 } from './types'
 
 // Create a custom hook to use the Vehicle context
@@ -74,6 +76,39 @@ export const getVehicles = async (dispatch, regNo) => {
     })
   }
 }
+
+export const getWorkshops = async (dispatch) => {
+  try {
+    const res = await client.get(`/workshop?appId=1`)
+
+    dispatch({
+      type: GET_WORKSHOPS,
+      payload: res.data,
+    })
+  } catch (err) {
+    dispatch({
+      type: VEHICLE_ERROR,
+      payload: err,
+    })
+  }
+}
+
+export const setWorkshop = async (dispatch, workshop) => {
+  try {
+    dispatch({
+      type: SET_WORKSHOP,
+      payload: workshop,
+    })
+
+    // navigation.navigate(url);
+  } catch (err) {
+    dispatch({
+      type: VEHICLE_ERROR,
+      payload: err,
+    })
+  }
+}
+
 
 // Get Services
 export const getServices = async (dispatch, workshop_id) => {
@@ -215,7 +250,7 @@ export const searchVehicle = async (dispatch, regNo) => {
 
     const res = await client.get(`/vehicle/${regNo}`)
 
-    if (res.status != 200)
+    if (res.status !== 200)
       dispatch({
         type: VEHICLE_ERROR,
         payload: res,

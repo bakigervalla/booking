@@ -1,5 +1,5 @@
 .w3 {
-    @apply  h-full md:h-[36rem] w-full md:w-1/2;
+    @apply h-full md:h-[36rem] w-full md:w-1/2;
     border: 2px solid #1a51a0;
 }
 .personal-info {
@@ -54,7 +54,7 @@ div.buttons {
     display        : block;
     align-items    : center;
     justify-content: flex-end;
-    margin         : 8px 0;
+    padding: 8px;
 }
 
 .w3 .actions div:first-child:not(.badge) {

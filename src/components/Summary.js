@@ -23,11 +23,11 @@ const Summary = () => {
 
       <VehicleInfo vehicle={vehicles} />
 
-      <div class="heading text-center"><h3>Din forespørsel er sent!</h3>
-      <span class="text-sm">Vi tar kontakt med deg så snart som mulig.</span>
+      <div class="heading h-32 pt-6 text-center"><h3>Din forespørsel er sent!</h3>
+        <span class="text-sm">Vi tar kontakt med deg så snart som mulig.</span>
       </div>
 
-      <div className="summary w-2/4">
+      <div className="summary w-[90%] md:w-1/2 mx-4">
         <h3>Bestilling Oversikt</h3>
         <div className="table">
           <div className="row">
@@ -67,7 +67,7 @@ const Summary = () => {
           </div>
           <div className="row">
             <div className="col-1">&nbsp;</div>
-            <div className="col-11">
+            <div className="col-11 grid place-items-center ">
               <img alt="logo" className='w-40' src={logo} />
             </div>
           </div>

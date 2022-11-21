@@ -13,6 +13,8 @@ import {
   CLEAR_ERROR,
   SET_LOADING,
   SEARCH_VEHICLE,
+  GET_WORKSHOPS,
+  SET_WORKSHOP
 } from './types'
 
 const vehicleReducer = (state, action) => {
@@ -89,6 +91,17 @@ const vehicleReducer = (state, action) => {
       return {
         ...state,
         vehicle: action.payload,
+      }
+    case GET_WORKSHOPS:
+      let workshops = action.payload.filter((w) => w.active).filter((w) => w.workshop_id !== 1357)
+      return {
+        ...state,
+        workshops: workshops,
+      }
+    case SET_WORKSHOP:
+      return {
+        ...state,
+        workshop: action.payload,
       }
     case VEHICLE_ERROR:
       return {

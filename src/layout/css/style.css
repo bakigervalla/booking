@@ -6,11 +6,29 @@
     .main {
         @apply place-items-center;
     }
+    .sec-flag {
+        @apply ml-1;
+    }
+    .sec-carname {
+        @apply p-1 w-3/5; 
+    }
+    .sec-carname div {
+        @apply w-48 px-2;
+    }
 }
 
 @media (min-width: 1024px) {
     .main {
         @apply grid place-items-center;
+    }
+    .sec-flag dif {
+        @apply ml-4;
+    }
+    .sec-carname {
+        @apply p-4 md:p-0 w-4/5;
+    }
+    .sec-carname div {
+        @apply w-60 md:w-48 px-4;
     }
 }
 

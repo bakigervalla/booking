@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useVehicles, getVehicles } from '../context/VehicleState'
-import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+import { BrowserView, MobileView } from 'react-device-detect';
 
 import Alert from '../layout/Alert'
 import '../layout/css/vehicle.css'

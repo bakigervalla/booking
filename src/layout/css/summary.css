@@ -1,5 +1,5 @@
 .w4 {
-    @apply h-[38rem] w-2/3 ;
+    @apply h-full md:h-[38rem]  w-full md:w-1/2;
     border: 2px solid #1a51a0;
     @apply grid place-items-center;
 }

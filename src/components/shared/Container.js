@@ -4,14 +4,13 @@ import { Vehicles, Service, PersonalInfo, Summary, Box, Info, Progress } from '.
 
 export const Container = () => {
     const [vehicleState] = useVehicles()
-    const { step } = vehicleState
+    const { workshop, step } = vehicleState
 
-
-    let workshop = { workshop_id: process.env.REACT_APP_WORKSHOP_ID
-                    ,slug: process.env.REACT_APP_WORKSHOP_SLUG, name: process.env.REACT_APP_WORKSHOP_NAME
-                    ,phone: process.env.REACT_APP_WORKSHOP_PHONE
-                    ,email: process.env.REACT_APP_WORKSHOP_EMAIL
-             }
+    // let workshop = { workshop_id: process.env.REACT_APP_WORKSHOP_ID
+    //                 ,slug: process.env.REACT_APP_WORKSHOP_SLUG, name: process.env.REACT_APP_WORKSHOP_NAME
+    //                 ,phone: process.env.REACT_APP_WORKSHOP_PHONE
+    //                 ,email: process.env.REACT_APP_WORKSHOP_EMAIL
+    //          }
 
     let container;
 
