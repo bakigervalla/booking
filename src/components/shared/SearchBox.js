@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const SearchBox = ({ showResults, vehicle, setShowResults, setShowModal }) => {
+export const SearchBox = ({ showResults, vehicle, setShowResults, onEUKontroll }) => {
 
     const formatDate = (date) => {
         try {
@@ -53,8 +53,7 @@ export const SearchBox = ({ showResults, vehicle, setShowResults, setShowModal }
                             className="btn-blue"
                             onClick={() => {
                                 setShowResults(false)
-                                setShowModal(true)
-                                // orderButtonClicked()
+                                onEUKontroll()
                             }}
                             value="Bestill EU-kontroll"
                         />

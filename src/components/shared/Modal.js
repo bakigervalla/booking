@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 // import { useWorkshops } from '../../hooks/use-workshops'
-import { useVehicles, getWorkshops, setWorkshop } from '../../context/VehicleState'
+import { useVehicles, getWorkshop, setWorkshop } from '../../context/VehicleState'
 
 const Modal = ({ setShowModal }) => {
     // const workshops = useWorkshops()
@@ -8,7 +8,7 @@ const Modal = ({ setShowModal }) => {
     const { workshops } = vehicleState
 
     useEffect(() => {
-        getWorkshops(vehicleDispatch)
+        getWorkshop(vehicleDispatch)
     }, [vehicleDispatch])
 
     return (

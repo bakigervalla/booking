@@ -1,6 +1,7 @@
 .w3 {
-    @apply h-full md:h-[36rem] w-full md:w-1/2;
+    @apply min-h-[36rem] w-full md:w-1/2;
     border: 2px solid #1a51a0;
+    height: auto
 }
 .personal-info {
  @apply grid place-items-center;

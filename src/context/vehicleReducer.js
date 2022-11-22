@@ -1,7 +1,9 @@
 import {
   SET_STEP,
   GET_VEHICLES,
+  GET_WORKSHOPS,
   GET_SERVICES,
+  SET_SERVICE,
   ADD_SERVICE,
   REMOVE_SERVICE,
   SERVICE_AGREEMENT,
@@ -13,8 +15,7 @@ import {
   CLEAR_ERROR,
   SET_LOADING,
   SEARCH_VEHICLE,
-  GET_WORKSHOPS,
-  SET_WORKSHOP
+  SET_EUKONTROLL
 } from './types'
 
 const vehicleReducer = (state, action) => {
@@ -29,19 +30,38 @@ const vehicleReducer = (state, action) => {
         ...state,
         vehicles: action.payload,
       }
-    case GET_SERVICES:
+    case GET_WORKSHOPS:
       return {
         ...state,
-        categories: action.payload
+        workshop: action.payload,
+      }
+    case GET_SERVICES:
+      let services = action.payload.data
+        .filter((x) => x.type === 'service')
+        .sort(function (a, b) {
+          return a.id - b.id || a.name.localeCompare(b.name)
+        }),
+        filtered = action.payload.isEUKontroll ? services.filter((x) => { return x.code === 'EUK' }) : [];
+      if (action.payload.isEUKontroll)
+        services.map(s => {
+          if (s.code === 'EUK')
+            s.selected = true;
+        });
+
+      return {
+        ...state,
+        categories: action.payload.data
           .filter((x) => x.type === 'category')
           .sort(function (a, b) {
             return a.id - b.id || a.name.localeCompare(b.name)
           }),
-        services: action.payload
-          .filter((x) => x.type === 'service')
-          .sort(function (a, b) {
-            return a.id - b.id || a.name.localeCompare(b.name)
-          }),
+        services: services,
+        filtered: filtered //action.payload.isEUKontroll ? services.filter((x) => { return x.code === 'EUK' }) : null
+      }
+    case SET_SERVICE:
+      return {
+        ...state,
+        defaultService: action.payload
       }
     case ADD_SERVICE:
       let exists = state.filtered.includes(action.payload)
@@ -92,16 +112,11 @@ const vehicleReducer = (state, action) => {
         ...state,
         vehicle: action.payload,
       }
-    case GET_WORKSHOPS:
-      let workshops = action.payload.filter((w) => w.active).filter((w) => w.workshop_id !== 1357)
+    case SET_EUKONTROLL:
       return {
         ...state,
-        workshops: workshops,
-      }
-    case SET_WORKSHOP:
-      return {
-        ...state,
-        workshop: action.payload,
+        isEUKontroll: action.payload.isEUKontroll,
+        plateNo: action.payload.plateNo
       }
     case VEHICLE_ERROR:
       return {

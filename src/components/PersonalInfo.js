@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useLayoutEffect, useEffect, useState } from 'react'
 import { BrowserView, MobileView, isMobile } from 'react-device-detect';
+import { useLocation } from 'react-router-dom';
 
 import VehicleInfo from './VehicleInfo'
 import Spinner from '../layout/Spinner'
@@ -13,6 +14,8 @@ const PersonalInfo = ({ workshop }) => {
   const [vehicleState, vehicleDispatch] = useVehicles()
   const { vehicles, person, filtered, serviceAgreement, step, loading } = vehicleState
   const { error } = vehicleState
+
+  const location = useLocation();
 
   const [search, setSearch] = useState('')
 
@@ -114,6 +117,10 @@ const PersonalInfo = ({ workshop }) => {
     // instruct eslint regarding dependencies
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [person, filtered])
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   const onSearch = (e) => setSearch(e.target.value)
 

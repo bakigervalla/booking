@@ -1,6 +1,7 @@
 .w2 {
-    @apply h-full md:h-[36rem] w-full md:w-1/2;
+    @apply min-h-[36rem] w-full md:w-1/2;
     border: 2px solid #1a51a0;
+    height: auto;
 }
 
 .w2 .title {
@@ -98,10 +99,10 @@
     cursor: pointer;
 }
 
-.tooltip#third {
+/* .tooltip#third {
     position: static;
     float: right;
-}
+} */
 
 .w2 .icon-left:not(#third svg) {
     color: #fff;

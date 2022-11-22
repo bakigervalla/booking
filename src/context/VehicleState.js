@@ -8,7 +8,9 @@ import client from './api'
 import {
   SET_STEP,
   GET_VEHICLES,
+  GET_WORKSHOPS,
   GET_SERVICES,
+  SET_SERVICE,
   ADD_SERVICE,
   REMOVE_SERVICE,
   SERVICE_AGREEMENT,
@@ -20,8 +22,7 @@ import {
   CLEAR_ERROR,
   SET_LOADING,
   SEARCH_VEHICLE,
-  GET_WORKSHOPS,
-  SET_WORKSHOP
+  SET_EUKONTROLL
 } from './types'
 
 // Create a custom hook to use the Vehicle context
@@ -55,7 +56,7 @@ export const setLoading = async (dispatch, loading) => {
 }
 
 // Get Vehicles
-export const getVehicles = async (dispatch, regNo) => {
+export const getVehicle = async (dispatch, regNo) => {
   try {
     setLoading(dispatch, true)
 
@@ -77,14 +78,37 @@ export const getVehicles = async (dispatch, regNo) => {
   }
 }
 
-export const getWorkshops = async (dispatch) => {
+export const setEUKontroll = (dispatch, regNo) => {
+  dispatch({
+    type: SET_EUKONTROLL,
+    payload: { isEUKontroll: true, plateNo: regNo },
+  })
+}
+
+export const setService = async (dispatch, service) => {
+  dispatch({
+    type: SET_SERVICE,
+    payload: service,
+  })
+}
+
+export const getWorkshop = async (dispatch) => {
   try {
     const res = await client.get(`/workshop?appId=1`)
 
+    if (res.data.length == 0)
+      return dispatch({
+        type: VEHICLE_ERROR,
+        payload: 'No workshop found',
+      })
+
+    let workshops = res.data.filter((w) => w.active).filter((w) => w.workshop_id === 1075)
+
     dispatch({
       type: GET_WORKSHOPS,
-      payload: res.data,
+      payload: workshops[0],
     })
+
   } catch (err) {
     dispatch({
       type: VEHICLE_ERROR,
@@ -92,33 +116,18 @@ export const getWorkshops = async (dispatch) => {
     })
   }
 }
-
-export const setWorkshop = async (dispatch, workshop) => {
-  try {
-    dispatch({
-      type: SET_WORKSHOP,
-      payload: workshop,
-    })
-
-    // navigation.navigate(url);
-  } catch (err) {
-    dispatch({
-      type: VEHICLE_ERROR,
-      payload: err,
-    })
-  }
-}
-
 
 // Get Services
-export const getServices = async (dispatch, workshop_id) => {
+export const getServices = async (dispatch, workshop_id, isEUKontroll) => {
   try {
+
     const res = await client.get(`/services/${workshop_id}`)
 
     dispatch({
       type: GET_SERVICES,
-      payload: res.data,
+      payload: { ...{ data: res.data, isEUKontroll: isEUKontroll } },
     })
+
   } catch (err) {
     dispatch({
       type: VEHICLE_ERROR,
@@ -261,7 +270,7 @@ export const searchVehicle = async (dispatch, regNo) => {
         payload: { ...res.data },
       })
 
-      setLoading(dispatch, false)
+    setLoading(dispatch, false)
   }
 }
 

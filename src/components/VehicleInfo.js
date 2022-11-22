@@ -11,7 +11,7 @@ const VehicleInfo = ({ vehicle }) => {
       }}
     >
       <div className="sec-flag flex flex-row w-44 bg-white rounded-lg h-8 p-[1px]">
-        <div className='flex row pl-1 w-[40px] items-center rounded-l-lg' style={{ backgroundColor: '#1A51A0', width: '60px;' }}>
+        <div className='flex row pl-1 w-[40px] items-center rounded-l-lg' style={{ backgroundColor: '#1A51A0', width: '40px' }}>
           <img alt="flag" className='px-1 w-28' src={flag} />
         </div>
         <div className='w-28 text-center pt-[4px] default-text'>{vehicle?.kjennemerke}</div>

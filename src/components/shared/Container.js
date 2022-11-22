@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useVehicles, setWorkshop } from '../../context/VehicleState'
+import { useVehicles, getWorkshop } from '../../context/VehicleState'
 import { Vehicles, Service, PersonalInfo, Summary, Box, Info, Progress } from '../index'
 
 export const Container = () => {
@@ -7,12 +7,7 @@ export const Container = () => {
     const { workshop, step } = vehicleState
 
     useEffect(() => {
-        setWorkshop(vehicleDispatch, {
-            workshop_id: process.env.REACT_APP_WORKSHOP_ID
-            , slug: process.env.REACT_APP_WORKSHOP_SLUG, name: process.env.REACT_APP_WORKSHOP_NAME
-            , phone: process.env.REACT_APP_WORKSHOP_PHONE
-            , email: process.env.REACT_APP_WORKSHOP_EMAIL
-        })
+        getWorkshop(vehicleDispatch)
     }, [])
     // let workshop = {
     //     workshop_id: process.env.REACT_APP_WORKSHOP_ID

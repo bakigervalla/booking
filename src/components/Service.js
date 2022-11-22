@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useLayoutEffect, useEffect, useState } from 'react'
 import { BrowserView, MobileView } from 'react-device-detect';
+import { useLocation } from 'react-router-dom';
 
 import {
   useVehicles,
@@ -22,42 +23,51 @@ import { faPlusCircle, faCheck, faInfoCircle } from '@fortawesome/free-solid-svg
 
 const Services = ({ workshop }) => {
   const [vehicleState, vehicleDispatch] = useVehicles()
-  const { vehicles, categories, services, filtered, serviceAgreement, loading, step, error } = vehicleState
+  const { vehicles, categories, services, filtered, serviceAgreement, isEUKontroll, loading, step, error } = vehicleState
   const [showMore, setShowMore] = useState([false])
   const [descr, toggleDescription] = useState()
   const [chkDesc, toggleCheckboxDesc] = useState()
 
-  console.log(workshop);
+  const location = useLocation();
+
   useEffect(() => {
-    getServices(vehicleDispatch, workshop.workshop_id)
-  }, [vehicleDispatch, workshop.workshop_id])
+    getServices(vehicleDispatch, workshop.workshop_id, isEUKontroll)
+  }, [])
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   function Item({ item }) {
     return item.is_active ? (
       <>
-        <div>
-          <div className="tooltip" id="third">
-            <FontAwesomeIcon
-              icon={faInfoCircle}
-              className="icon-left"
-              onClick={(e) => toggleDescription(descr !== item.id ? item.id : -1)}
-            />
-            <div className="arrow"></div>
-            <div className="info">
-              <p>{item.description}</p>
-            </div>
-          </div>
-          <div
-            onClick={() => {
-              addService(vehicleDispatch, item)
-            }}
-          >
-            {item.selected ? (
-              <FontAwesomeIcon icon={faCheck} className="icon selected-service" />
-            ) : (
-              <FontAwesomeIcon icon={faPlusCircle} className="icon" />
-            )}
+        <div className='flex grid-cols-2 w-full'>
+          <div className='grid w-11/12'>
             <span className='text-start'>{item.name}</span>
+          </div>
+          <div className='grid grid-cols-2 place-items-center'>
+            <div
+              onClick={() => {
+                addService(vehicleDispatch, item)
+              }}
+            >
+              {item.selected ? (
+                <FontAwesomeIcon icon={faCheck} className="icon selected-service" />
+              ) : (
+                <FontAwesomeIcon icon={faPlusCircle} className="icon" />
+              )}
+            </div>
+            <div className="tooltip  ml-4" id="third">
+              <FontAwesomeIcon
+                icon={faInfoCircle}
+                className="icon-left"
+                onClick={(e) => toggleDescription(descr !== item.id ? item.id : -1)}
+              />
+              <div className="arrow"></div>
+              <div className="info">
+                <p>{item.description}</p>
+              </div>
+            </div>
           </div>
         </div>
         <div className={`service-desc ${descr === item.id ? 'show' : null}`}>
@@ -161,7 +171,7 @@ const Services = ({ workshop }) => {
         </div>
       </BrowserView>
       <MobileView>
-      <div className="grid grid-rows-2 gap-4 content-start h-28 justify-center items-center">
+        <div className="grid grid-rows-2 gap-4 content-start h-28 justify-center items-center">
           <div className="w-96 grid-container">
             <div className="first-service-heading">
               <div className='flex row items-center ml-4'>

@@ -1,17 +1,22 @@
-import React, { useState } from 'react'
-import { useVehicles, getVehicles } from '../context/VehicleState'
+import React, { useEffect, useState } from 'react'
+import { useVehicles, getVehicle } from '../context/VehicleState'
 import { BrowserView, MobileView } from 'react-device-detect';
 
 import Alert from '../layout/Alert'
 import '../layout/css/vehicle.css'
 import Spinner from '../layout/Spinner'
 
-const Vehicles = ({ workshop }) => {
+const Vehicles = ({ workshop },) => {
   const [vehicleState, vehicleDispatch] = useVehicles()
-  const { error, loading } = vehicleState
+  const { plateNo, error, loading } = vehicleState
 
   const [state, setInput] = useState({ regNo: '' })
   const { regNo } = state
+
+  useEffect(() => {
+    if (plateNo)
+      setInput({ regNo: plateNo })
+  }, [plateNo])
 
   const onChange = (e) => setInput({ ...state, [e.target.name]: e.target.value.toUpperCase() })
 
@@ -45,7 +50,7 @@ const Vehicles = ({ workshop }) => {
               type="button"
               value="NESTE"
               onClick={() => {
-                getVehicles(vehicleDispatch, regNo)
+                getVehicle(vehicleDispatch, regNo)
               }}
               disabled={regNo?.length === 0}
             />
@@ -71,7 +76,7 @@ const Vehicles = ({ workshop }) => {
               type="button"
               value="NESTE"
               onClick={() => {
-                getVehicles(vehicleDispatch, regNo)
+                getVehicle(vehicleDispatch, regNo)
               }}
               disabled={regNo?.length === 0}
             />

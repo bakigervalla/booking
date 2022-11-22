@@ -1,5 +1,5 @@
-import React from 'react'
-// import { navigate } from 'gatsby'
+import React, { useLayoutEffect, useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom';
 
 import VehicleInfo from './VehicleInfo'
 import { useVehicles, clearFilter, setStep } from '../context/VehicleState'
@@ -11,12 +11,11 @@ const Summary = () => {
   const [vehicleState, vehicleDispatch] = useVehicles()
   const { vehicles, person, filtered } = vehicleState
 
-  const ScrollToTopOnMount = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
-  }
+  const location = useLocation();
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <div className="w4">
@@ -68,7 +67,7 @@ const Summary = () => {
           <div className="row">
             <div className="col-1">&nbsp;</div>
             <div className="col-11 grid place-items-center ">
-              <img alt="logo" className='w-40' src={logo} />
+              {/* <img alt="logo" className='w-40' src={logo} /> */}
             </div>
           </div>
         </div>
@@ -82,7 +81,6 @@ const Summary = () => {
               // navigate(`${url}order`)
               clearFilter(vehicleDispatch)
               setStep(vehicleDispatch, 1, '')
-              ScrollToTopOnMount()
             }}
           ></input>
         </div>
