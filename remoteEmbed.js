@@ -19,7 +19,7 @@
 
   // iframe config
   var ifrmId = "remote-embed-script-elem", // new iframe id
-    contentName = "http://localhost:3000", // target file in same domain and folder as this loader js, and REQUIRES valid doctype !
+    contentName = "https://bakigervalla.github.io/booking/", // target file in same domain and folder as this loader js, and REQUIRES valid doctype !
     ifrmClass = ""; // extra classes to add to iframe
 
   // get the current scripts filename
