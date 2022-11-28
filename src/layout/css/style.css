@@ -28,7 +28,7 @@
         @apply p-4 md:p-0 w-4/5;
     }
     .sec-carname div {
-        @apply w-60 md:w-48 px-4;
+        @apply w-60 md:w-60 px-4;
     }
 }
 

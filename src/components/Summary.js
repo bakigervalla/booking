@@ -1,5 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import React, { useRef, useEffect, } from 'react'
 
 import VehicleInfo from './VehicleInfo'
 import { useVehicles, clearFilter, setStep } from '../context/VehicleState'
@@ -11,19 +10,19 @@ const Summary = () => {
   const [vehicleState, vehicleDispatch] = useVehicles()
   const { vehicles, person, filtered } = vehicleState
 
-  const location = useLocation();
+  const topRef = useRef(null)
 
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+  useEffect(() => {
+    topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [person])
 
   return (
-    <div className="w4">
+    <div ref={topRef} className="w4">
 
       <VehicleInfo vehicle={vehicles} />
 
-      <div class="heading h-32 pt-6 text-center"><h3>Din forespørsel er sent!</h3>
-        <span class="text-sm">Vi tar kontakt med deg så snart som mulig.</span>
+      <div className="heading h-32 pt-6 text-center"><h3>Din forespørsel er sent!</h3>
+        <span className="text-sm">Vi tar kontakt med deg så snart som mulig.</span>
       </div>
 
       <div className="summary w-[90%] md:w-1/2 mx-4">

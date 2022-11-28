@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useVehicles, getVehicle } from '../context/VehicleState'
 import { BrowserView, MobileView } from 'react-device-detect';
 
@@ -13,15 +13,21 @@ const Vehicles = ({ workshop },) => {
   const [state, setInput] = useState({ regNo: '' })
   const { regNo } = state
 
+  const topRef = useRef(null)
+
   useEffect(() => {
     if (plateNo)
       setInput({ regNo: plateNo })
   }, [plateNo])
 
+  // useEffect(() => {
+  //   topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  // }, [])
+
   const onChange = (e) => setInput({ ...state, [e.target.name]: e.target.value.toUpperCase() })
 
   return (
-    <div className="w1" id="booking">
+    <div ref={topRef} className="w1" id="booking">
       <h2 className="title">Bestill time på 1-2-3</h2>
 
       {error && <Alert type="error" message={error} />}

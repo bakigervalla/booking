@@ -1,6 +1,5 @@
-import React, { useLayoutEffect, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { BrowserView, MobileView, isMobile } from 'react-device-detect';
-import { useLocation } from 'react-router-dom';
 
 import VehicleInfo from './VehicleInfo'
 import Spinner from '../layout/Spinner'
@@ -15,9 +14,9 @@ const PersonalInfo = ({ workshop }) => {
   const { vehicles, person, filtered, serviceAgreement, step, loading } = vehicleState
   const { error } = vehicleState
 
-  const location = useLocation();
-
   const [search, setSearch] = useState('')
+
+  const topRef = useRef(null)
 
   // form handlers
   const { handleSubmit, handleChange, data, errors, fillData } = useForm({
@@ -118,14 +117,14 @@ const PersonalInfo = ({ workshop }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [person, filtered])
 
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+  useEffect(() => {
+    topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [person])
 
   const onSearch = (e) => setSearch(e.target.value)
 
   return (
-    <div className="w3">
+    <div ref={topRef} className="w3">
 
       {error && <Alert type="error" message={error} />}
       {loading && <Spinner />}

@@ -1,6 +1,5 @@
-import React, { useLayoutEffect, useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { BrowserView, MobileView } from 'react-device-detect';
-import { useLocation } from 'react-router-dom';
 
 import {
   useVehicles,
@@ -28,29 +27,31 @@ const Services = ({ workshop }) => {
   const [descr, toggleDescription] = useState()
   const [chkDesc, toggleCheckboxDesc] = useState()
 
-  const location = useLocation();
+  const topRef = useRef(null)
 
   useEffect(() => {
     getServices(vehicleDispatch, workshop.workshop_id, isEUKontroll)
   }, [])
 
-  useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+  useEffect(() => {
+    topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [categories])
 
   function Item({ item }) {
     return item.is_active ? (
       <>
         <div className='flex grid-cols-2 w-full'>
-          <div className='grid w-11/12'>
+          <div className='grid w-11/12'
+            onClick={() => {
+              addService(vehicleDispatch, item)
+            }}>
             <span className='text-start'>{item.name}</span>
           </div>
           <div className='grid grid-cols-2 place-items-center'>
             <div
               onClick={() => {
                 addService(vehicleDispatch, item)
-              }}
-            >
+              }}>
               {item.selected ? (
                 <FontAwesomeIcon icon={faCheck} className="icon selected-service" />
               ) : (
@@ -136,14 +137,14 @@ const Services = ({ workshop }) => {
 
       {/* Checkbox */}
       <BrowserView>
-        <div className="grid grid-cols-3 gap-4 content-start h-24 justify-center items-center">
+        <div ref={topRef} className="grid grid-cols-3 gap-4 content-start h-24 justify-center items-center">
           <div className="w-96 grid-container">
             <div className="first-service-heading">
               <div className='flex row items-center ml-4'>
                 <input
                   type="checkbox"
                   checked={serviceAgreement}
-                  onChange={() => setServiceAgreement(!serviceAgreement)}
+                  onChange={() => setServiceAgreement(vehicleDispatch, !serviceAgreement)}
                 />
                 <p>Fragus serviceavtale</p>
                 <div className="tooltip" id="third">
@@ -171,14 +172,14 @@ const Services = ({ workshop }) => {
         </div>
       </BrowserView>
       <MobileView>
-        <div className="grid grid-rows-2 gap-4 content-start h-28 justify-center items-center">
+        <div ref={topRef} className="grid grid-rows-2 gap-4 content-start h-28 justify-center items-center">
           <div className="w-96 grid-container">
             <div className="first-service-heading">
               <div className='flex row items-center ml-4'>
                 <input
                   type="checkbox"
                   checked={serviceAgreement}
-                  onChange={() => setServiceAgreement(!serviceAgreement)}
+                  onChange={() => setServiceAgreement(vehicleDispatch, !serviceAgreement)}
                 />
                 <p>Fragus serviceavtale</p>
                 <div className="tooltip" id="third">
@@ -211,7 +212,7 @@ const Services = ({ workshop }) => {
           {categories &&
             categories.map((category, key) => {
               return (
-                <div key={key} className="service-box w-full md:w-[23.4%]">
+                <div key={key} className="service-box w-full md:w-[23.2%]">
                   <h5>{category.name}</h5>
                   {services.filter((itm) => {
                     if (itm.category_id === category.id) return true

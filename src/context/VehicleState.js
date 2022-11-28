@@ -102,7 +102,7 @@ export const getWorkshop = async (dispatch) => {
         payload: 'No workshop found',
       })
 
-    let workshops = res.data.filter((w) => w.active).filter((w) => w.workshop_id === 1075)
+    let workshops = res.data.filter((w) => w.active).filter((w) => w.workshop_id === 1357)
 
     dispatch({
       type: GET_WORKSHOPS,
@@ -162,7 +162,7 @@ export const setServiceAgreement = async (dispatch, hasAgreement) => {
   } catch (err) {
     dispatch({
       type: VEHICLE_ERROR,
-      payload: err.response.msg,
+      payload: err.response,
     })
   }
 }
@@ -290,6 +290,7 @@ const VehicleState = (props) => {
     person: {},
     step: 1,
     current: null,
+    serviceAgreement: false,
     error: null,
     isLoading: false,
   }
