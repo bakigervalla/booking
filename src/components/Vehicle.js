@@ -27,7 +27,7 @@ const Vehicles = ({ workshop },) => {
   const onChange = (e) => setInput({ ...state, [e.target.name]: e.target.value.toUpperCase() })
 
   return (
-    <div ref={topRef} className="w1" id="booking">
+    <div ref={topRef} className="w1">
       <h2 className="title">Bestill time på 1-2-3</h2>
 
       {error && <Alert type="error" message={error} />}

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { HashLink } from 'react-router-hash-link';
-import { Route, Switch, useLocation } from 'react-router-dom'
 
 import { BrowserView, MobileView } from 'react-device-detect';
 import { SearchBox } from "./SearchBox";
@@ -12,7 +11,7 @@ import Spinner from '../../layout/Spinner'
 
 export const Box = () => {
     const [vehicleState, vehicleDispatch] = useVehicles()
-    const { plateNo, vehicle, error, loading } = vehicleState
+    const { vehicle, error, loading } = vehicleState
 
     const [showResults, setShowResults] = useState(false)
     const [state, setInput] = useState({ regNo: '' })
@@ -24,13 +23,11 @@ export const Box = () => {
 
     const onChange = (e) => setInput({ ...state, [e.target.name]: e.target.value.toUpperCase() })
 
-    const { pathname, hash, key } = useLocation();
-
     const _onEUKontroll = () => {
         setEUKontroll(vehicleDispatch, regNo);
 
         setTimeout(() => {
-            const element = document.getElementById("booking");
+            const element = document.getElementById("infobox"); 
             if (element) {
                 element.scrollIntoView();
             }
@@ -45,7 +42,7 @@ export const Box = () => {
             <div className="grid lg:grid-cols-2 md:grid-cols-1 gap-x-20 gap-y-2 lg:w-6/12 md:w-full">
                 <div className="box">
                     <h4>Bestill time</h4>
-                    <HashLink className="btn-blue pt-1" smooth to="/#booking">Sjekk og bestill time</HashLink>
+                    <HashLink className="btn-blue pt-1" smooth to="/#infobox">Sjekk og bestill time</HashLink>
                 </div>
                 <div className="box">
                     {error && <Alert type="error" message={error} />}

@@ -96,7 +96,7 @@ export const getWorkshop = async (dispatch) => {
   try {
     const res = await client.get(`/workshop?appId=1`)
 
-    if (res.data.length == 0)
+    if (res.data.length === 0)
       return dispatch({
         type: VEHICLE_ERROR,
         payload: 'No workshop found',
@@ -189,7 +189,7 @@ export const findPerson = async (dispatch, phone) => {
   try {
     setLoading(dispatch, true)
 
-    let url = `https://live.intouch.no/tk/search.php?qry=${phone}&from=1&to=27&format=json&charset=UTF-8&username=CARSCAS&password=caso641`
+    let url = `https://live.intouch.no/tk/search.php?qry=${phone}&from=1&to=27&format=json&charset=UTF-8&username=cars&password=Cars%252021`
     const res = await axios.get(url)
 
     const {

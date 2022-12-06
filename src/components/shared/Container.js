@@ -22,8 +22,8 @@ export const Container = () => {
         case 1:
             container = <>
                 <Box />
-                <Progress step={step} />
                 <Info />
+                <Progress step={step} />
                 <Vehicles workshop={workshop} />
             </>
             break;
