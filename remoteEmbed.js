@@ -65,10 +65,12 @@
     // eslint-disable-next-line no-new-func
     frmOpts = new Function("return " + scriptTag.innerHTML + ";")();
   } catch (ex) {}
-  frmOpts = frmOpts || {
-    log: true,
-    bodyBackground: "transparent" /* inPageLinks: true */
-  };
+  frmOpts = frmOpts || JSON.parse(scriptTag.innerHTML);
+  // {
+  //   log: true,
+  //   bodyBackground: "transparent" /* inPageLinks: true */,
+  //   path: "",
+  // }
 
   // adjust id and class
   ifrmId = frmOpts.id || ifrmId; // extra param for <script ...>{ id:'' .. }</script>
@@ -82,6 +84,7 @@
     var ifrm = document.createElement("iframe");
     ifrm.id = ifrmId;
     // replace this file name with the content file name, preserving the rest of the URL
+	contentName = frmOpts.path;
     ifrm.setAttribute(
       "src",
 	  contentName
