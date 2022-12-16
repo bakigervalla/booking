@@ -3,6 +3,7 @@
   top: 50%;
   transform: translateY(-50%);
 }
+
 .flex-child {
   flex: 1;
   color: white;
@@ -76,5 +77,191 @@
   margin: 5px;
   padding: 1rem;
   font-family: inherit;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.vehicle-history {
+  padding: 2rem;
+  width: 60%;
+}
+
+.vehicle-history div.left-sec {
+  padding-right: 1rem;
+  font-size: 1.2rem;
+  width: 70%;
+}
+
+.vehicle-history .vehicle-list {
+  margin-left: 1rem;
+  margin-right: 0px;
+  width: 30%;
+}
+
+.vehicle-history .vehicle-list h4,
+.vehicle-history h2 {
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+  font-size: 2.3em;
+  margin: 0 0 1rem 0;
+}
+
+.vehicle-history h1 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+}
+
+.vehicle-history p {
+  margin-bottom: 2rem;
+}
+
+.vehicle-title {
+  margin: 0 0 1rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.vehicle-subheader {
+  margin: 0 0 2rem 0;
   font-size: 1rem;
+  font-weight: 700;
+}
+
+.date-box {
+  padding: 2rem 1rem;
+  border: 1px solid #dddddd;
+}
+
+.vehicle-header {
+}
+
+.date-boxes {
+}
+
+.tab-pages {
+}
+
+.vehicle-settings {
+}
+
+.error-message {
+  margin: 0 0 1rem 0;
+  color: var(--error-color);
+  text-align: center;
+  font-weight: 700;
+}
+.form-group {
+  margin-bottom: 2rem;
+}
+.label {
+  display: inline-block;
+  margin-right: 1rem;
+  font-size: 1.2rem;
+}
+.danger-button-small {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--error-color);
+  color: white;
+  background: var(--error-color);
+}
+.primary-button-small {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--primary-color);
+  color: white;
+  background: var(--primary-color);
+}
+.primary-button-small :disabled {
+  border: 1px solid rgba(26, 81, 160, 0.4);
+  background: rgba(26, 81, 160, 0.4);
+}
+.secondary-button-small {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  border: 1px solid #333333;
+  background: white;
+}
+.row {
+  margin-top: 1rem;
+}
+ul.tab {
+  margin: 1rem 0 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+li.tab-itm {
+  flex: 1;
+  padding: 1rem;
+  border-top: 4px solid transparent;
+  border-bottom: 1px solid #dddddd;
+  border-left: 1px solid transparent;
+  transition: all 0.25s ease-out;
+}
+
+li.tab-itm .selected {
+  color: var(--primary-color);
+  border-top-color: var(--primary-color);
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-bottom-color: transparent;
+}
+li.tab-itm :hover {
+  cursor: pointer;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table tr {
+  display: flex;
+}
+.table tr:nth-child(odd) {
+  background: #f7f7f7f7;
+}
+.table th,
+.table td {
+  padding: 0.5rem;
+  flex: 1;
+  border-bottom: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+}
+.table td:not(:first-child) {
+  text-align: center;
+}
+.box {
+  padding: 2rem 1rem;
+  border: 1px solid #dddddd;
+}
+
+.history-item {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #dddddd;
+}
+
+.vh-checkbox {
+  display: block;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: rgb(247, 247, 247);
+}
+.vh-checkbox input {
+  margin-right: 8px;
+}
+
+.vehicle-liste {
+  display: block;
+}
+
+.vh-box-right div {
+  margin-bottom: 1rem;
+  padding: 1.2rem 1rem;
+  border: 1px solid rgb(221, 221, 221);
+  cursor: pointer;
+}
+.vh-box-right div:hover{
+  background: #f8f8f8;
 }

@@ -2,7 +2,7 @@
   "name": "booking",
   "version": "0.1.0",
   "private": true,
-  "homepage": ".",
+  "homepage": "https://bakigervalla.github.io/booking",
   "dependencies": {
     "@apollo/client": "^3.7.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.0",
@@ -14,6 +14,7 @@
     "axios": "^1.1.3",
     "graphql": "^16.6.0",
     "jwt-decode": "^3.1.2",
+    "moment": "^2.29.4",
     "query-string": "^8.0.3",
     "react": "^18.2.0",
     "react-device-detect": "^2.2.2",

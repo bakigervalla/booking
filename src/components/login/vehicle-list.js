@@ -11,17 +11,17 @@ const VehicleList = ({ vehicles, selected, onClicked }) => {
   const data = showActiveOnly ? activeVehicles : vehicles;
 
   return (
-    <div>
-      <div>
+    <div className="vehicle-liste">
+      <div className="vh-checkbox">
         <input type="checkbox" onChange={onActiveVehiclesChange} />
         Vis kun aktive biler
       </div>
-      {data.map((vehicle, i) => {
+      {data?.map((vehicle, i) => {
         const isSelected =
           selected && vehicle.vehicle.regno === selected.vehicle.regno;
 
         return (
-          <div
+          <div className="vh-box-right"
             key={`vehicle-${i}`}
             onClick={() => onClicked(vehicle.vehicle.regno)}
           >

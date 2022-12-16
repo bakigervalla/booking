@@ -5,8 +5,13 @@ import { useQuery } from "../../hooks/use-query";
 
 import jwt_decode from "jwt-decode";
 import queryString from "query-string";
+import * as moment from "moment";
 
 import VehicleList from "./vehicle-list";
+import VehicleSettings from "./vehicle-settings";
+import MyPageTabs from "./tab-pages";
+import History from "./history";
+import Xtra from "./xtra";
 
 // import { ErrorMessage } from '../components/styled/errorMessage'
 
@@ -24,17 +29,17 @@ import { isBrowser } from "react-device-detect";
 
 const VehicleHistory = (callback, deps) => {
   const { loading, fetchVehicleHistory, response, error } = useVehicle();
-
+  const { vehicles, selectedVehicle, history, xtra } = response;
   const token = useGetToken();
   let location = useQuery();
-  const query = queryString.parse(location.search);
+  const query = queryString.parse(location);
   const { username: phone } = token ? jwt_decode(token) : { username: null };
 
   const [regno, setRegno] = useState(query.regno);
-  const [selectedVehicle, setSelectedVehicle] = useState(undefined);
-  const [vehicles, setVehicles] = useState([]);
-  const [history, setHistory] = useState([]);
-  const [xtra, setXtra] = useState(undefined);
+  // const [selectedVehicle, setSelectedVehicle] = useState(undefined);
+  // const [vehicles, setVehicles] = useState([]);
+  // const [history, setHistory] = useState([]);
+  // const [xtra, setXtra] = useState(undefined);
   const [loadingData, setLoadingData] = useState(false);
   const [tab, setTab] = useState(0);
 
@@ -46,25 +51,45 @@ const VehicleHistory = (callback, deps) => {
   useEffect(() => {
     (async () => {
       try {
-        await fetchVehicleHistory();
-        console.log("data", response);
+        console.log('shit',phone, regno);
+        await fetchVehicleHistory(phone, regno);
+        console.log(response);
       } catch (e) {
         console.error(e);
       }
     })();
   }, [phone, regno]);
 
+  const DateBox = ({ title, date }) => {
+    return (
+      <div
+        className="date-box"
+        style={{ paddingTop: "1rem", paddingBottom: "1rem" }}
+      >
+        <strong>{title}</strong>
+        <br />
+        {date && <time>{moment(date).format("DD.MM.YY")}</time>}
+        {!date && "Ikke oppgitt"}
+      </div>
+    );
+  };
+
   return (
-    <div style={mainBox} className="flex-container">
-      <div className="flex-child magenta" style={firstBox}>
-        {/* {!loading && !hasVehicles && <NoDataFound username={phone} />} */}
+    <div style={mainBox} className="vehicle-history">
+      <div className="left-sec" style={firstBox}>
+        {!loading && !hasVehicles && (
+          <React.Fragment>
+            <h2>Ingen data</h2>
+            <p>Vi har ingen kjøretøy registrert på telefonnummer {phone}.</p>
+          </React.Fragment>
+        )}
         {loading ? (
           <p>Henter kjøretøy og historikk...</p>
         ) : (
           <React.Fragment>
             {!selectedVehicle ? (
               <React.Fragment>
-                <h2>Ingen historikk</h2>
+                <h1>Ingen historikk</h1>
                 <p>
                   Fant ingen historikk registrert på deg med registreringsnummer{" "}
                   {regno}
@@ -72,25 +97,66 @@ const VehicleHistory = (callback, deps) => {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {/* <VehicleHeader selectedVehicle={selectedVehicle} />
-                      <DateBoxes selectedVehicle={selectedVehicle} /> */}
+                <div className="vehicle-header">
+                  {selectedVehicle && (
+                    <div className="vehicle-title">
+                      {selectedVehicle.vehicle.regno}
+                    </div>
+                  )}
+                  {selectedVehicle && selectedVehicle.data && (
+                    <div className="vehicle-subheader">
+                      {selectedVehicle.data.merkeNavn}{" "}
+                      {selectedVehicle.data.modellbetegnelse}{" "}
+                      {selectedVehicle.data.regAAr}
+                    </div>
+                  )}
+                </div>
+                <div className="date-boxes">
+                  {selectedVehicle && (
+                    <div className="grid">
+                      <div className="column">
+                        <DateBox
+                          title="Neste EU-kontroll"
+                          date={selectedVehicle?.data?.nestePKK ?? "-"}
+                        />
+                      </div>
+                      <div className="column">
+                        <DateBox title="Neste time">
+                          date={selectedVehicle.vehicle.next_work_date}
+                        </DateBox>
+                      </div>
+                      <div className="column">
+                        <DateBox
+                          title="Neste beregnet service"
+                          date={selectedVehicle.vehicle.next_service_date}
+                        />
+                      </div>
+                      <div className="column">
+                        <DateBox
+                          title="Mobilitetsgaranti utløper 1 mnd. etter denne dato"
+                          date={selectedVehicle.vehicle.mob_expiry_date}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
 
                 {loadingData && <p>Henter historikk...</p>}
 
                 {!loadingData && (
-                  <div onTabSelected={setTab}>
-                    {/* {tab === 0 && <History history={history} />} */}
+                  <MyPageTabs onTabSelected={setTab}>
+                    {tab === 0 && <History history={history} />}
 
-                    {/* {tab === 1 && <Xtra xtra={xtra} />} */}
+                    {tab === 1 && <Xtra xtra={xtra} />}
 
-                    {/* {tab === 2 && (
-                            <VehicleSettings
-                              regno={selectedVehicle.vehicle.regno}
-                              phone={phone}
-                              settings={selectedVehicle.settings}
-                            />
-                          )} */}
-                  </div>
+                    {tab === 2 && (
+                      <VehicleSettings
+                        regno={selectedVehicle.vehicle.regno}
+                        phone={phone}
+                        settings={selectedVehicle.settings}
+                      />
+                    )}
+                  </MyPageTabs>
                 )}
               </React.Fragment>
             )}
@@ -98,7 +164,7 @@ const VehicleHistory = (callback, deps) => {
         )}
       </div>
 
-      <div>
+      <div className="vehicle-list">
         <h4 style={{ margin: "0 0 1rem 0" }}>Dine biler</h4>
 
         {loading && !hasVehicles ? (
