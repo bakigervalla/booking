@@ -1,7 +1,8 @@
 .flex-container {
-  position: absolute;
+  /* position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%); */
+  display: flex;
 }
 
 .flex-child {
