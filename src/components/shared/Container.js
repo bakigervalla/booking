@@ -8,7 +8,7 @@ export const Container = () => {
 
     useEffect(() => {
         getWorkshop(vehicleDispatch)
-    }, [])
+    }, [vehicleDispatch])
     // let workshop = {
     //     workshop_id: process.env.REACT_APP_WORKSHOP_ID
     //     , slug: process.env.REACT_APP_WORKSHOP_SLUG, name: process.env.REACT_APP_WORKSHOP_NAME

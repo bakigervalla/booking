@@ -189,7 +189,7 @@ export const findPerson = async (dispatch, phone) => {
   try {
     setLoading(dispatch, true)
 
-    let url = `https://live.intouch.no/tk/search.php?qry=${phone}&from=1&to=27&format=json&charset=UTF-8&username=cars&password=Cars%252021`
+    let url = `https://live.intouch.no/tk/search.php?qry=${phone}&from=1&to=27&format=json&charset=UTF-8&username=carscas&password=7JcaRyAqMq`
     const res = await axios.get(url)
 
     const {

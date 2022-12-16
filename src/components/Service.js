@@ -31,7 +31,7 @@ const Services = ({ workshop }) => {
 
   useEffect(() => {
     getServices(vehicleDispatch, workshop.workshop_id, isEUKontroll)
-  }, [])
+  }, [isEUKontroll, vehicleDispatch, workshop.workshop_id])
 
   useEffect(() => {
     topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })

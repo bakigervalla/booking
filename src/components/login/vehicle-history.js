@@ -40,7 +40,7 @@ const VehicleHistory = (callback, deps) => {
   // const [vehicles, setVehicles] = useState([]);
   // const [history, setHistory] = useState([]);
   // const [xtra, setXtra] = useState(undefined);
-  const [loadingData, setLoadingData] = useState(false);
+  const [loadingData] = useState(false);
   const [tab, setTab] = useState(0);
 
   const hasVehicles = vehicles && vehicles.length > 0;
@@ -58,7 +58,7 @@ const VehicleHistory = (callback, deps) => {
         console.error(e);
       }
     })();
-  }, [phone, regno]);
+  }, [phone, regno, fetchVehicleHistory, response]);
 
   const DateBox = ({ title, date }) => {
     return (
