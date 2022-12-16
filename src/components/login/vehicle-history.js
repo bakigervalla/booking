@@ -51,14 +51,13 @@ const VehicleHistory = (callback, deps) => {
   useEffect(() => {
     (async () => {
       try {
-        console.log('shit',phone, regno);
         await fetchVehicleHistory(phone, regno);
         console.log(response);
       } catch (e) {
         console.error(e);
       }
     })();
-  }, [phone, regno, fetchVehicleHistory, response]);
+  }, [phone, regno]);
 
   const DateBox = ({ title, date }) => {
     return (
