@@ -1,27 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 
-const MyPageTabs = ({ onTabSelected, children }) => {
-  const [tab, setTab] = useState(0);
+const MyPageTabs = ({ onTabSelected, tab, children }) => {
   const tabItems = ["Historikk", "Xtrasjekk skjema", "Innstillinger"];
 
   const selectTab = (index) => {
-    setTab(index);
     onTabSelected(index);
   };
-
   return (
     <React.Fragment>
-      <div className="tab">
+      <ul className="tab-pages">
         {tabItems.map((tabItem, index) => (
-          <ul
+          <li
             key={`tab-${index}`}
-            className={tab === index ? "tab selected" : "tab"}
+            className={tab === index ? "tab-itm selected" : "tab-itm"}
             onClick={() => selectTab(index)}
           >
-            <li className="tab-itm">{tabItem}</li>
-          </ul>
+            {tabItem}
+          </li>
         ))}
-      </div>
+      </ul>
       {children}
     </React.Fragment>
   );

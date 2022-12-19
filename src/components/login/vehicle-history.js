@@ -13,37 +13,24 @@ import MyPageTabs from "./tab-pages";
 import History from "./history";
 import Xtra from "./xtra";
 
-// import { ErrorMessage } from '../components/styled/errorMessage'
-
-// import MyPageLayout from '../layouts/my-page-layout'
-// import History from '../components/my-page/history'
-// import Xtra from '../components/my-page/xtra'
-// import { VehicleHeader } from '../components/my-page/vehicleHeader'
-// import { DateBoxes } from '../components/my-page/date-boxes'
-
-// import NoDataFound from '../components/my-page/no-data-found'
-// import VehicleSettings from '../components/my-page/vehicle-settings'
-// import { authenticatedRequest } from '../services/data.service'
-
 import { isBrowser } from "react-device-detect";
 
 const VehicleHistory = (callback, deps) => {
-  const { loading, fetchVehicleHistory, response, error } = useVehicle();
-  const { vehicles, selectedVehicle, history, xtra } = response;
+  const { fetchVehicle, error } = useVehicle();
   const token = useGetToken();
   let location = useQuery();
   const query = queryString.parse(location);
   const { username: phone } = token ? jwt_decode(token) : { username: null };
 
+  const [loading, setLoading] = useState(false);
   const [regno, setRegno] = useState(query.regno);
-  // const [selectedVehicle, setSelectedVehicle] = useState(undefined);
-  // const [vehicles, setVehicles] = useState([]);
-  // const [history, setHistory] = useState([]);
-  // const [xtra, setXtra] = useState(undefined);
+  const [vehicles, setVehicles] = useState([]);
+  const [selectedVehicle, setSelectedVehicle] = useState(undefined);
+  const [history, setHistory] = useState([]);
+  const [xtra, setXtra] = useState(undefined);
   const [loadingData] = useState(false);
   const [tab, setTab] = useState(0);
-
-  const hasVehicles = vehicles && vehicles.length > 0;
+  const [hasVehicles, setHasVehicles] = useState(false);
 
   const mainBox = isBrowser ? { display: "flex" } : { display: "block" };
   const firstBox = isBrowser ? null : { marginBottom: "2rem" };
@@ -51,19 +38,33 @@ const VehicleHistory = (callback, deps) => {
   useEffect(() => {
     (async () => {
       try {
-        await fetchVehicleHistory(phone, regno);
-        console.log(response);
+        console.log(phone);
+        if (phone != null) {
+          setLoading(true);
+          var response = await fetchVehicle(phone, regno);
+
+          setVehicles(response.vehicles);
+          setSelectedVehicle(response.selectedVehicle);
+          setHistory(response.history);
+          setXtra(response.xtra);
+
+          setHasVehicles(response.vehicles && response.vehicles.length > 0);
+          setLoading(false);
+        }
       } catch (e) {
         console.error(e);
       }
     })();
+    // eslint-disable-next-line
   }, [phone, regno]);
+
+  const dateBoxStyle = { paddingTop: "1rem", paddingBottom: "1rem", marginRight: isBrowser ? '1rem' : '0' }
 
   const DateBox = ({ title, date }) => {
     return (
       <div
-        className="date-box"
-        style={{ paddingTop: "1rem", paddingBottom: "1rem" }}
+        className="date-box col-3"
+        style={dateBoxStyle}
       >
         <strong>{title}</strong>
         <br />
@@ -74,8 +75,8 @@ const VehicleHistory = (callback, deps) => {
   };
 
   return (
-    <div style={mainBox} className="vehicle-history">
-      <div className="left-sec" style={firstBox}>
+    <div style={mainBox} className="vehicle-history container">
+      <div className="left-sec col-9" style={firstBox}>
         {!loading && !hasVehicles && (
           <React.Fragment>
             <h2>Ingen data</h2>
@@ -96,66 +97,61 @@ const VehicleHistory = (callback, deps) => {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <div className="vehicle-header">
+                <div className="vehicle-header row">
                   {selectedVehicle && (
                     <div className="vehicle-title">
                       {selectedVehicle.vehicle.regno}
                     </div>
                   )}
                   {selectedVehicle && selectedVehicle.data && (
-                    <div className="vehicle-subheader">
+                    <div className="vehicle-subheader row">
                       {selectedVehicle.data.merkeNavn}{" "}
                       {selectedVehicle.data.modellbetegnelse}{" "}
                       {selectedVehicle.data.regAAr}
                     </div>
                   )}
                 </div>
-                <div className="date-boxes">
-                  {selectedVehicle && (
-                    <div className="grid">
-                      <div className="column">
-                        <DateBox
-                          title="Neste EU-kontroll"
-                          date={selectedVehicle?.data?.nestePKK ?? "-"}
-                        />
-                      </div>
-                      <div className="column">
-                        <DateBox title="Neste time">
-                          date={selectedVehicle.vehicle.next_work_date}
-                        </DateBox>
-                      </div>
-                      <div className="column">
-                        <DateBox
-                          title="Neste beregnet service"
-                          date={selectedVehicle.vehicle.next_service_date}
-                        />
-                      </div>
-                      <div className="column">
-                        <DateBox
-                          title="Mobilitetsgaranti utløper 1 mnd. etter denne dato"
-                          date={selectedVehicle.vehicle.mob_expiry_date}
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
+                {selectedVehicle && (
+                  <div className={isBrowser ? 'flex row' : 'row'}>
+                    <DateBox
+                      title="Neste EU-kontroll"
+                      date={selectedVehicle?.data?.nestePKK ?? "-"}
+                    />
+                    <DateBox
+                      title="Neste time"
+                      date={selectedVehicle.vehicle.next_work_date}
+                    />
+                    <DateBox
+                      title="Neste beregnet service"
+                      date={selectedVehicle.vehicle.next_service_date}
+                    />
+                    <DateBox
+                      title="Mobilitetsgaranti utløper 1 mnd. etter denne dato"
+                      date={selectedVehicle.vehicle.mob_expiry_date}
+                    />
+                  </div>
+                )}
 
                 {loadingData && <p>Henter historikk...</p>}
 
                 {!loadingData && (
-                  <MyPageTabs onTabSelected={setTab}>
-                    {tab === 0 && <History history={history} />}
+                  <div className="row">
+                    <MyPageTabs onTabSelected={setTab} tab={tab}>
+                      <div className="ul-content">
+                        {tab === 0 && <History history={history} />}
 
-                    {tab === 1 && <Xtra xtra={xtra} />}
+                        {tab === 1 && <Xtra xtra={xtra} />}
 
-                    {tab === 2 && (
-                      <VehicleSettings
-                        regno={selectedVehicle.vehicle.regno}
-                        phone={phone}
-                        settings={selectedVehicle.settings}
-                      />
-                    )}
-                  </MyPageTabs>
+                        {tab === 2 && (
+                          <VehicleSettings
+                            regno={selectedVehicle.vehicle.regno}
+                            phone={phone}
+                            settings={selectedVehicle.settings}
+                          />
+                        )}
+                      </div>
+                    </MyPageTabs>
+                  </div>
                 )}
               </React.Fragment>
             )}
@@ -163,7 +159,7 @@ const VehicleHistory = (callback, deps) => {
         )}
       </div>
 
-      <div className="vehicle-list">
+      <div className="vehicle-list col-3">
         <h4 style={{ margin: "0 0 1rem 0" }}>Dine biler</h4>
 
         {loading && !hasVehicles ? (

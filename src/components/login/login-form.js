@@ -16,7 +16,6 @@ const LoginForm = () => {
     const { token } = await login(phone, regno);
     localStorage.setItem("bilxtra-web-auth", token);
     navigate(`/vehicle-history?regno=${regno}`);
-    // navigate(`/min-side?regno=${regno}`)
   };
 
   return (

@@ -83,19 +83,16 @@
 }
 
 .vehicle-history {
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .vehicle-history div.left-sec {
-  padding-right: 1rem;
   font-size: 1.2rem;
-  width: 70%;
 }
 
 .vehicle-history .vehicle-list {
   margin-left: 1rem;
   margin-right: 0px;
-  width: 30%;
 }
 
 .vehicle-history .vehicle-list h4,
@@ -113,7 +110,10 @@
 }
 
 .vehicle-history p {
+  padding: 1rem 0;
   margin-bottom: 2rem;
+  font-size: 1.2rem;
+  font-weight: 400;
 }
 
 .vehicle-title {
@@ -131,15 +131,16 @@
 .date-box {
   padding: 2rem 1rem;
   border: 1px solid #dddddd;
+  margin-bottom: 1rem;
 }
 
 .vehicle-header {
 }
 
-.date-boxes {
-}
-
-.tab-pages {
+.ul-content {
+  padding: 2rem 1rem;
+  border: 1px solid rgb(221, 221, 221);
+  border-top: none;
 }
 
 .vehicle-settings {
@@ -157,21 +158,22 @@
 .label {
   display: inline-block;
   margin-right: 1rem;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 600;
 }
 .danger-button-small {
   padding: 0.5rem 1rem;
-  font-size: 0.8rem;
-  border: 1px solid var(--error-color);
+  font-size: 1.1rem;
+  border: 1px solid #fe6d73;
   color: white;
-  background: var(--error-color);
+  background: #fe6d73;
 }
 .primary-button-small {
   padding: 0.5rem 1rem;
-  font-size: 0.8rem;
-  border: 1px solid var(--primary-color);
+  font-size: 1.1rem;
+  border: 1px solid #1a51a0;
   color: white;
-  background: var(--primary-color);
+  background: #1a51a0;
 }
 .primary-button-small :disabled {
   border: 1px solid rgba(26, 81, 160, 0.4);
@@ -186,27 +188,27 @@
 .row {
   margin-top: 1rem;
 }
-ul.tab {
-  margin: 1rem 0 0 0;
-  padding: 0;
+
+li.tab-itm {
+  flex: 1;
+  padding: 0.5rem;
+}
+li.tab-itm:not(.selected) {
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.tab-pages {
+  margin: 1rem 0px 0px;
+  padding: 0px;
   list-style: none;
   display: flex;
 }
-li.tab-itm {
-  flex: 1;
-  padding: 1rem;
-  border-top: 4px solid transparent;
-  border-bottom: 1px solid #dddddd;
-  border-left: 1px solid transparent;
-  transition: all 0.25s ease-out;
-}
 
-li.tab-itm .selected {
-  color: var(--primary-color);
-  border-top-color: var(--primary-color);
-  border-left: 1px solid #dddddd;
-  border-right: 1px solid #dddddd;
-  border-bottom-color: transparent;
+li.tab-itm.selected {
+  color: #1a51a0;
+  border-top: 5px solid #1a51a0;
+  border-left: 1px solid rgb(221, 221, 221);
+  border-right: 1px solid rgb(221, 221, 221);
 }
 li.tab-itm :hover {
   cursor: pointer;
@@ -236,12 +238,6 @@ li.tab-itm :hover {
   border: 1px solid #dddddd;
 }
 
-.history-item {
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #dddddd;
-}
-
 .vh-checkbox {
   display: block;
   margin-bottom: 1rem;
@@ -262,6 +258,18 @@ li.tab-itm :hover {
   border: 1px solid rgb(221, 221, 221);
   cursor: pointer;
 }
-.vh-box-right div:hover{
+.vh-box-right div:hover {
   background: #f8f8f8;
+}
+
+.selected-vehicle {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border: 2px solid #1a51a0 !important;
+  color: #1a51a0;
+}
+
+.column {
+  margin-right: 1rem;
+  width: 17rem;
 }

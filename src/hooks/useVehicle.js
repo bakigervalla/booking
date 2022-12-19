@@ -2,54 +2,68 @@ import { useState } from "react";
 import client from "../context/api";
 
 export const useVehicle = () => {
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(undefined);
-  const [response, setResponse] = useState({});
 
-  const fetchVehicleHistory = async (phone, regno) => {
-    setLoading(true);
-
-    const response = await client.get(`vehicle/phone/${phone}`);
+  const fetchVehicle = async (phone, regno) => {
+    const response = await client.get(`vehicle/phone/null`);
 
     if (response.status !== 200) setError("An error occurred");
-
     const { data } = response;
 
-    const index = data.findIndex(
-      ({ vehicle }) => vehicle.regno === regno
-    );
+    const index = data.findIndex(({ vehicle }) => vehicle.regno === regno);
 
     if (index !== -1) {
-      let selectedVehicle = data[index];
-      let regNo = data[index].vehicle.regno;
+      let selectedVehicle = data[index],
+        regNo = selectedVehicle.vehicle.regno;
 
-      const { history, xtra } = await client.get(`history/${regno}/${phone}`);
-
-      setResponse({
+      const { vehicle, history, xtra } = await fetchVehicleHistory(
+        phone,
+        regNo
+      );
+      return {
         vehicles: data,
+        vehicle: vehicle,
         selectedVehicle: selectedVehicle,
         regNo: regNo,
         history: history,
         xtra: xtra,
-      });
+      };
     }
-    else {
-      setResponse({
-        vehicles: data,
-        selectedVehicle: null,
-        regNo: regno,
-        history: null,
-        xtra: null,
-      });
-    }
+  };
 
-    setLoading(false);
+  const fetchVehicleHistory = async (phone, regno) => {
+    const { data } = await client.get(`history/${regno}/null`);
+    return data;
+  };
+
+  const updateVehicleSettings = async (updatedSettings, regno, phone) => {
+    delete updatedSettings.regno;
+
+    try {
+      let response = await client.patch(`vehicle/${regno}/settings`, {
+        ...updatedSettings,
+        phone,
+      });
+
+      if (response.status === 200) {
+        const { data } = response;
+        return {
+          status: "idle",
+          description: data.description,
+          active: data.active,
+        };
+      } else {
+        return { status: "failure" };
+      }
+    } catch (error) {
+      console.error(error);
+      return { status: "failure" };
+    }
   };
 
   return {
-    loading,
-    fetchVehicleHistory,
-    response,
+    fetchVehicle,
+    updateVehicleSettings,
     error,
   };
 };

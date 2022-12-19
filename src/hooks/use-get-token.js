@@ -4,8 +4,8 @@ export const useGetToken = () => {
   const [token, setToken] = useState(undefined)
 
   useEffect(() => {
-    const token = localStorage.getItem('bilxtra-web-auth')
-    setToken(token)
+    const access_token = localStorage.getItem('bilxtra-web-auth')
+    setToken(access_token)
   }, [])
 
   return token

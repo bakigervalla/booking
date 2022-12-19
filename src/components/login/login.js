@@ -3,21 +3,19 @@ import LoginForm from "./login-form";
 import { isBrowser } from "react-device-detect";
 
 import "./login.css";
+import "../../layout/css/simple-grid.css";
 const mainBox = isBrowser ? { display: "flex" } : { display: "block" };
 const firstBox = isBrowser ? null : { marginBottom: "2rem" };
 
 const LoginPage = () => {
-  //   const workshop = useGetFavoriteWorkshop();
-  //   const token = useGetToken();
-
   return (
-    <div style={mainBox} className="flex-container">
-      <div className="flex-child magenta" style={firstBox}>
+    <div style={mainBox} className="flex-container container">
+      <div className=" magenta" style={firstBox}>
         <h1>Bileiers side</h1>
         <LoginForm />
       </div>
 
-      <div className="flex-child blue">
+      <div className="blue">
         <h2>På bileiers side kan du sjekke blant annet:</h2>
         <ul>
           <li>Historikken på en eller flere av bilene dine</li>

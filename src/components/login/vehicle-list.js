@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import Box from './styled/box'
 
 const VehicleList = ({ vehicles, selected, onClicked }) => {
   const [showActiveOnly, setShowActiveOnly] = useState(false);
@@ -11,7 +10,7 @@ const VehicleList = ({ vehicles, selected, onClicked }) => {
   const data = showActiveOnly ? activeVehicles : vehicles;
 
   return (
-    <div className="vehicle-liste">
+    <div className="container">
       <div className="vh-checkbox">
         <input type="checkbox" onChange={onActiveVehiclesChange} />
         Vis kun aktive biler
@@ -21,33 +20,21 @@ const VehicleList = ({ vehicles, selected, onClicked }) => {
           selected && vehicle.vehicle.regno === selected.vehicle.regno;
 
         return (
-          <div className="vh-box-right"
+          <div
+            className="vh-box-right col-12"
             key={`vehicle-${i}`}
             onClick={() => onClicked(vehicle.vehicle.regno)}
           >
-            {isSelected ? (
-              <div>
-                <strong>{vehicle.vehicle.regno}</strong>
-                <br />
-                {vehicle.data && (
-                  <small>
-                    {vehicle.data.merkeNavn} {vehicle.data.modellbetegnelse}{" "}
-                    {vehicle.data.regAAr}
-                  </small>
-                )}
-              </div>
-            ) : (
-              <div>
-                <strong>{vehicle.vehicle.regno}</strong>
-                <br />
-                {vehicle.data && (
-                  <small>
-                    {vehicle.data.merkeNavn} {vehicle.data.modellbetegnelse}{" "}
-                    {vehicle.data.regAAr}
-                  </small>
-                )}
-              </div>
-            )}
+            <div className={isSelected ? "selected-vehicle" : null}>
+              <strong>{vehicle.vehicle.regno}</strong>
+              <br />
+              {vehicle.data && (
+                <small>
+                  {vehicle.data.merkeNavn} {vehicle.data.modellbetegnelse}{" "}
+                  {vehicle.data.regAAr}
+                </small>
+              )}
+            </div>
           </div>
         );
       })}
