@@ -6,7 +6,6 @@ import {
   getServices,
   addService,
   removeService,
-  setServiceAgreement,
   setStep,
 } from "../context/VehicleState";
 
@@ -31,7 +30,6 @@ const Services = ({ workshop }) => {
     categories,
     services,
     filtered,
-    serviceAgreement,
     isEUKontroll,
     loading,
     step,
@@ -39,7 +37,6 @@ const Services = ({ workshop }) => {
   } = vehicleState;
   const [showMore, setShowMore] = useState([false]);
   const [descr, toggleDescription] = useState();
-  const [chkDesc, toggleCheckboxDesc] = useState();
 
   const topRef = useRef(null);
 
@@ -162,14 +159,6 @@ const Services = ({ workshop }) => {
           ref={topRef}
           className="grid grid-cols-3 gap-4 content-start h-24 justify-center items-center"
         >
-          <div className="w-96 grid-container">
-            <div className="first-service-heading">
-              <div className={`service-desc ${chkDesc ? "show" : null}`}>
-                <span>Har du Fragus serviceavtale? Huk av for det her.</span>
-              </div>
-            </div>
-          </div>
-
           <div>
             <h2 className="title pt-6 whitespace-nowrap">
               Hva gjelder henvendelsen?
@@ -182,33 +171,6 @@ const Services = ({ workshop }) => {
           ref={topRef}
           className="grid grid-rows-2 gap-4 content-start h-28 justify-center items-center"
         >
-          <div className="w-96 grid-container">
-            <div className="first-service-heading">
-              <div className="flex row items-center ml-4">
-                <input
-                  type="checkbox"
-                  checked={serviceAgreement}
-                  onChange={() =>
-                    setServiceAgreement(vehicleDispatch, !serviceAgreement)
-                  }
-                />
-                <p>Fragus serviceavtale</p>
-                <div className="tooltip" id="third">
-                  <FontAwesomeIcon
-                    icon={faInfoCircle}
-                    className="icon-left"
-                    onClick={(e) => toggleCheckboxDesc(!chkDesc)}
-                  />
-                  <div className={`service-desc ${chkDesc ? "show" : null}`}>
-                    <span>
-                      Har du Fragus serviceavtale? Huk av for det her.
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <div>
             <h2 className="title pt-6 whitespace-nowrap text-center">
               Hva gjelder henvendelsen?

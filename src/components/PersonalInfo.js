@@ -250,7 +250,7 @@ const PersonalInfo = ({ workshop }) => {
                     </div>
                   </div>
                   <div className='grid grid-cols-3 gap-4 h-[4.5rem]'>
-                    <div className="form-group col-2">
+                    <div className="form-group">
                       <p>Gate *</p>
                       <input
                         type="text"
@@ -261,7 +261,7 @@ const PersonalInfo = ({ workshop }) => {
                       />
                       {errors.street && <p className="error">{errors.street}</p>}
                     </div>
-                    <div className="form-group col-2">
+                    <div className="form-group">
                       <p>Postnr *</p>
                       <input
                         type="text"
@@ -272,7 +272,7 @@ const PersonalInfo = ({ workshop }) => {
                       />
                       {errors.zip && <p className="error">{errors.zip}</p>}
                     </div>
-                    <div className="form-group col-2">
+                    <div className="form-group">
                       <p>Posted *</p>
                       <input
                         type="text"
@@ -426,7 +426,7 @@ const PersonalInfo = ({ workshop }) => {
                     </div>
                   </div>
 
-                  <div className="form-group col-2">
+                  <div className="form-group">
                     <p>Gate *</p>
                     <input
                       className='w-full'
@@ -437,7 +437,7 @@ const PersonalInfo = ({ workshop }) => {
                     />
                     {errors.street && <p className="error">{errors.street}</p>}
                   </div>
-                  <div className="form-group col-2">
+                  <div className="form-group">
                     <p>Postnr *</p>
                     <input
                       className='w-full'
@@ -448,7 +448,7 @@ const PersonalInfo = ({ workshop }) => {
                     />
                     {errors.zip && <p className="error">{errors.zip}</p>}
                   </div>
-                  <div className="form-group col-2">
+                  <div className="form-group">
                     <p>Posted *</p>
                     <input
                       className='w-full'

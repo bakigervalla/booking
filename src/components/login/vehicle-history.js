@@ -43,13 +43,16 @@ const VehicleHistory = (callback, deps) => {
           setLoading(true);
           var response = await fetchVehicle(phone, regno);
 
+          setLoading(false);
+          if(!response) return;
+
           setVehicles(response.vehicles);
           setSelectedVehicle(response.selectedVehicle);
           setHistory(response.history);
           setXtra(response.xtra);
 
           setHasVehicles(response.vehicles && response.vehicles.length > 0);
-          setLoading(false);
+          
         }
       } catch (e) {
         console.error(e);
