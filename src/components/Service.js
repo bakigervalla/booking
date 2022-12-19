@@ -157,25 +157,21 @@ const Services = ({ workshop }) => {
       <BrowserView>
         <div
           ref={topRef}
-          className="grid grid-cols-3 gap-4 content-start h-24 justify-center items-center"
+          className="grid grid-cols-1 content-center h-24 justify-center items-center text-center"
         >
-          <div>
-            <h2 className="title pt-6 whitespace-nowrap">
-              Hva gjelder henvendelsen?
-            </h2>
-          </div>
+          <h2 className="title pt-6 whitespace-nowrap">
+            Hva gjelder henvendelsen?
+          </h2>
         </div>
       </BrowserView>
       <MobileView>
         <div
           ref={topRef}
-          className="grid grid-rows-2 gap-4 content-start h-28 justify-center items-center"
+          className="grid grid-rows-2 gap-4 content-center h-28 justify-center items-center text-center"
         >
-          <div>
-            <h2 className="title pt-6 whitespace-nowrap text-center">
-              Hva gjelder henvendelsen?
-            </h2>
-          </div>
+          <h2 className="title pt-6 whitespace-nowrap text-center">
+            Hva gjelder henvendelsen?
+          </h2>
         </div>
       </MobileView>
 
