@@ -9,13 +9,13 @@ const firstBox = isBrowser ? null : { marginBottom: "2rem" };
 
 const LoginPage = () => {
   return (
-    <div style={mainBox} className="flex-container container">
-      <div className=" magenta" style={firstBox}>
+    <div style={mainBox} className="flex-container container ">
+      <div className="flex-child magenta" style={firstBox}>
         <h1>Bileiers side</h1>
         <LoginForm />
       </div>
 
-      <div className="blue">
+      <div className="flex-child blue">
         <h2>På bileiers side kan du sjekke blant annet:</h2>
         <ul>
           <li>Historikken på en eller flere av bilene dine</li>

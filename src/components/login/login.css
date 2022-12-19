@@ -9,6 +9,9 @@
   flex: 1;
   color: white;
 }
+.flex-child h1 {
+  color: white;
+}
 
 .flex-child:first-child {
   width: 100%;
@@ -23,10 +26,13 @@
   background: #1a51a0;
 }
 
-.flex-child h1 {
+.flex-child h1,
+.flex-child h2,
+.flex-child li {
   font-weight: 700;
   margin-top: 0;
   font-size: 3.2em;
+  color: white;
 }
 
 .flex-child h2 {
@@ -192,6 +198,7 @@
 li.tab-itm {
   flex: 1;
   padding: 0.5rem;
+  cursor: pointer;
 }
 li.tab-itm:not(.selected) {
   border-bottom: 1px solid #e3e3e3;
