@@ -2,7 +2,6 @@ import React, { useReducer, useContext } from 'react'
 
 import VehicleContext from './vehicleContext'
 import VehicleReducer from './vehicleReducer'
-import axios from 'axios'
 import client from './api'
 
 import {
