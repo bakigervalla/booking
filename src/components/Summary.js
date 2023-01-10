@@ -1,27 +1,29 @@
-import React, { useRef, useEffect, } from 'react'
+import React, { useRef, useEffect } from "react";
 
-import VehicleInfo from './VehicleInfo'
-import { useVehicles, clearFilter, setStep } from '../context/VehicleState'
+import VehicleInfo from "./VehicleInfo";
+import { useVehicles, clearFilter, setStep } from "../context/VehicleState";
 
-import '../layout/css/summary.css'
+import "../layout/css/summary.css";
 
-const Summary = () => {
-  const [vehicleState, vehicleDispatch] = useVehicles()
-  const { vehicles, person, filtered } = vehicleState
+const Summary = ({ workshop }) => {
+  const [vehicleState, vehicleDispatch] = useVehicles();
+  const { vehicles, person, filtered } = vehicleState;
 
-  const topRef = useRef(null)
+  const topRef = useRef(null);
 
   useEffect(() => {
-    topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }, [person])
+    topRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [person]);
 
   return (
     <div ref={topRef} className="w4">
-
       <VehicleInfo vehicle={vehicles} />
 
-      <div className="heading h-32 pt-6 text-center"><h3>Din forespørsel er sent!</h3>
-        <span className="text-sm">Vi tar kontakt med deg så snart som mulig.</span>
+      <div className="heading h-32 pt-6 text-center">
+        <h3>Din forespørsel er sent!</h3>
+        <span className="text-sm">
+          Vi tar kontakt med deg så snart som mulig.
+        </span>
       </div>
 
       <div className="summary w-[90%] md:w-1/2 mx-4">
@@ -30,8 +32,8 @@ const Summary = () => {
           <div className="row">
             <div className="col-1">Sted</div>
             <div className="col-11">
-              <span>Cars Bill AS</span>
-              <span>Fossveien 25 3403 Lier</span>
+              <span>{workshop.name}</span>
+              <span>{workshop.street}</span>
             </div>
           </div>
           <div className="row">
@@ -40,9 +42,9 @@ const Summary = () => {
               {filtered &&
                 filtered
                   .map((item, key) => {
-                    return item.name
+                    return item.name;
                   })
-                  .join(', ')}
+                  .join(", ")}
               {filtered.length === 0 && <span></span>}
             </div>
           </div>
@@ -74,18 +76,17 @@ const Summary = () => {
             type="button"
             value="FERDIG"
             onClick={() => {
-              const url = typeof window !== 'undefined' ? window.location : ''
-              url.hash = ''
+              const url = typeof window !== "undefined" ? window.location : "";
+              url.hash = "";
               // navigate(`${url}order`)
-              clearFilter(vehicleDispatch)
-              setStep(vehicleDispatch, 1, '')
+              clearFilter(vehicleDispatch);
+              setStep(vehicleDispatch, 1, "");
             }}
           ></input>
         </div>
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default Summary
+export default Summary;

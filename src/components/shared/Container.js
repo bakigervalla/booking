@@ -42,7 +42,7 @@ export const Container = () => {
         case 4:
             container = <>
                 <Progress step={step} />
-                <Summary step={step} />
+                <Summary step={step} workshop={workshop} />
             </>
             break;
         default:
