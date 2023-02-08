@@ -28,7 +28,7 @@
     "start": "cross-env REACT_APP_STAGE=development react-scripts start",
     "start-prod": "cross-env REACT_APP_STAGE=production react-scripts start",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build -r https://github.com/bakigervalla/booking.git",
+    "deploy": "gh-pages -d build -r https://github.com/bakigervalla/booking",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
